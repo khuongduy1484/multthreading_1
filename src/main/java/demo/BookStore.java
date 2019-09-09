@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.concurrent.Semaphore;
 
 public class BookStore {
-  private static final int MAX_AVAILABLE = 3;
+  private static final int MAX_AVAILABLE = 50;
   private final Semaphore available = new Semaphore(MAX_AVAILABLE, true);
   public static BookStore bookStore;
   protected Book[] books = new Book[MAX_AVAILABLE];
@@ -18,7 +18,7 @@ public class BookStore {
   }
 
   private BookStore() {
-    for (int i = 0; i < MAX_AVAILABLE; ++i) {
+    for (int i = 0; i < MAX_AVAILABLE; i++) {
       books[i] = new Book(i);
     }
   }
@@ -29,7 +29,7 @@ public class BookStore {
   }
 
   protected Book getBookInBookStore() {
-    for (int i = 0; i < MAX_AVAILABLE; ++i) {
+    for (int i = 0; i < MAX_AVAILABLE; i++) {
       if (!booked[i]) {
         booked[i] = true;
         return books[i];

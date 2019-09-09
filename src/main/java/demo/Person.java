@@ -3,7 +3,7 @@ package demo;
 
 import java.util.Date;
 
-public class Person extends Thread {
+public class Person implements Runnable {
   private Book book;
   private BookStore bookStore;
   private int id;
@@ -16,11 +16,8 @@ public class Person extends Thread {
   public void borrowBook() {
     try {
       book = bookStore.borrowBook();
-      if (book != null) {
         Date date = new Date();
         System.out.println( date.toString()+ " Person " + id + " borrows book " + book.getId() + " successfully");
-        System.out.println();
-      }
       Thread.sleep(10000);
       bookStore.returnBook(book, id);
     }
@@ -31,7 +28,6 @@ public class Person extends Thread {
 
   @Override
   public void run() {
-    super.run();
     borrowBook();
   }
 }
