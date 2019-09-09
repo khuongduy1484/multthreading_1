@@ -1,9 +1,10 @@
 package demo;
 
+import java.util.Date;
 import java.util.concurrent.Semaphore;
 
 public class BookStore {
-  private static final int MAX_AVAILABLE = 10;
+  private static final int MAX_AVAILABLE = 3;
   private final Semaphore available = new Semaphore(MAX_AVAILABLE, true);
   public static BookStore bookStore;
   protected Book[] books = new Book[MAX_AVAILABLE];
@@ -40,7 +41,8 @@ public class BookStore {
   public synchronized boolean returnBook(Book book, int id) {
     boolean returnSucceed = markAsUnused(book);
     if (returnSucceed) {
-      System.out.println("Person " + id + " returns book " + book.getId() + " nicely");
+ Date date = new Date();
+      System.out.println( date.toString() + " Person " + id + " returns book " + book.getId() + " nicely");
       available.release();
       book = null;
     }

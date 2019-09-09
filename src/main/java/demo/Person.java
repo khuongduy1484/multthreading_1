@@ -1,6 +1,8 @@
 package demo;
 
 
+import java.util.Date;
+
 public class Person extends Thread {
   private Book book;
   private BookStore bookStore;
@@ -15,7 +17,9 @@ public class Person extends Thread {
     try {
       book = bookStore.borrowBook();
       if (book != null) {
-        System.out.println("Person " + id + " borrows book " + book.getId() + " successfully");
+        Date date = new Date();
+        System.out.println( date.toString()+ " Person " + id + " borrows book " + book.getId() + " successfully");
+        System.out.println();
       }
       Thread.sleep(10000);
       bookStore.returnBook(book, id);
