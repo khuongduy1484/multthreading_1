@@ -3,7 +3,7 @@ package demo;
 import java.util.concurrent.Semaphore;
 
 public class BookStore {
-  private static final int MAX_AVAILABLE = 3;
+  private static final int MAX_AVAILABLE = 10;
   private final Semaphore available = new Semaphore(MAX_AVAILABLE, true);
   public static BookStore bookStore;
   protected Book[] books = new Book[MAX_AVAILABLE];
@@ -37,7 +37,7 @@ public class BookStore {
     return null;
   }
 
-  public boolean returnBook(Book book, int id) {
+  public synchronized boolean returnBook(Book book, int id) {
     boolean returnSucceed = markAsUnused(book);
     if (returnSucceed) {
       System.out.println("Person " + id + " returns book " + book.getId() + " nicely");
@@ -46,6 +46,7 @@ public class BookStore {
     }
     return returnSucceed;
   }
+
   protected synchronized boolean markAsUnused(Book book) {
     for (int i = 0; i < MAX_AVAILABLE; ++i) {
       if (book == books[i]) {
